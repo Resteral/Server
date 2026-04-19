@@ -1,10 +1,8 @@
 import { NextResponse } from 'next/server';
 
-// Mock DB for demonstration
-const mockPurchases = [
-  { id: 'tx-001', steamId: '76561198012345678', discord: 'user123', packageId: 1, package: 'VIP Rank', status: 'pending' },
-  { id: 'tx-002', steamId: '76561198012345678', discord: 'user123', packageId: 3, package: 'Shoulder Dragon', status: 'pending' }
-];
+// Local serverless array to hold transactions temporarily
+// (Note: To persist through Vercel restarts, you would write this to a simple DB later)
+let mockPurchases: any[] = [];
 
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);

@@ -2,11 +2,8 @@
 
 import Link from 'next/link';
 
-// Mock data for tickets
-const TICKETS = [
-  { id: 'TKT-1029', title: 'Did not receive VIP rank', status: 'Open', date: '2026-04-19 14:30', category: 'Purchase Issue' },
-  { id: 'TKT-1025', title: 'Ban Appeal', status: 'Closed', date: '2026-04-18 09:15', category: 'Appeal' },
-];
+// Empty start state
+const TICKETS: any[] = [];
 
 export default function TicketsPage() {
   return (

@@ -1,8 +1,7 @@
 import { NextResponse } from 'next/server';
 
-let systemTickets = [
-  { id: 'TKT-1029', steamId: '76561198012345678', discord: 'user123', title: 'Did not receive VIP rank', status: 'Open' },
-];
+// Local serverless array for holding generated tickets temporarily
+let systemTickets: any[] = [];
 
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
