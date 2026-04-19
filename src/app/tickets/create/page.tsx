@@ -38,24 +38,25 @@ export default function CreateTicket() {
 
         <form onSubmit={async (e) => { 
           e.preventDefault(); 
-          setSubmitted(true);
-          
-          // In a real environment, this dispatches a POST to /api/tickets
-          /*
           const formData = new FormData(e.currentTarget);
-          await fetch('/api/tickets', {
-             method: 'POST',
-             headers: { 'Content-Type': 'application/json' },
-             body: JSON.stringify({ 
-                action: 'create_web',
-                steamId: formData.get('steamId'),
-                discord: formData.get('discord'),
-                title: formData.get('title'),
-                description: formData.get('desc'),
-                category: formData.get('category')
-             })
-          });
-          */
+          try {
+            await fetch('/api/tickets', {
+               method: 'POST',
+               headers: { 'Content-Type': 'application/json' },
+               body: JSON.stringify({ 
+                  action: 'create_web',
+                  steamId: formData.get('steamId'),
+                  discord: formData.get('discord'),
+                  title: formData.get('title'),
+                  description: formData.get('desc'),
+                  category: formData.get('category')
+               })
+            });
+            setSubmitted(true);
+          } catch (err) {
+            console.error("Failed to submit ticket", err);
+            alert("Error submitting ticket, please try again.");
+          }
         }}>
           <div style={{ marginBottom: '1.5rem' }}>
             <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 'bold' }}>Category</label>
