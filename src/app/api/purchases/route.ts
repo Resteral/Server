@@ -7,15 +7,10 @@ let mockPurchases: any[] = [];
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
   const steamId = searchParams.get('steamId');
-  const serverKey = request.headers.get('Authorization');
 
-  // Verify server identity via secret key (Commented out for easy dev testing)
-  // if (serverKey !== 'Bearer GAME_SERVER_SECRET_KEY') {
-  //  return NextResponse.json({ error: 'Unauthorized game server request' }, { status: 401 });
-  // }
-
+  // If there's no SteamID, it might be a Tebex heartbeat/validation GET test
   if (!steamId) {
-    return NextResponse.json({ error: 'steamId is required' }, { status: 400 });
+    return NextResponse.json({ success: true, message: 'Purchases Endpoint Active' }, { status: 200 });
   }
 
   // Find all pending purchases for the player
@@ -26,21 +21,31 @@ export async function GET(request: Request) {
     success: true,
     player: steamId,
     pendingPurchases,
-    ownedItems // Include owned items so the game server can check what they already have
+    ownedItems 
   });
 }
 
 export async function POST(request: Request) {
-  // const serverKey = request.headers.get('Authorization');
-  // if (serverKey !== 'Bearer GAME_SERVER_SECRET_KEY') {
-  //  return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-  // }
+  let data;
+  try {
+    const rawBody = await request.text();
+    if (!rawBody) return new Response('OK', { status: 200 });
+    data = JSON.parse(rawBody);
+  } catch (err) {
+    // If it's not valid JSON, just accept it to stay alive
+    return new Response('OK', { status: 200 });
+  }
 
-  const data = await request.json();
+  // TEBEX V2 VALIDATION: Tebex endpoints require you to instantly return their "id" back to them 
+  // with a 200 OK when they send a validation.webhook event, or they will mark it as failed!
+  if (data.type === 'validation.webhook' || data.id) {
+    if (!data.transactionId && !data.subject) {
+       return NextResponse.json({ id: data.id }, { status: 200 });
+    }
+  }
+
   const { transactionId } = data;
 
-  // Tebex sends validation pings when you first configure the endpoint which don't contain a transactionId.
-  // We MUST return 200 OK to tell Tebex the URL is alive.
   if (!transactionId) {
     return NextResponse.json({ success: true, message: 'Endpoint Validated' }, { status: 200 });
   }
@@ -58,7 +63,6 @@ export async function POST(request: Request) {
   
   if (purchase && DISCORD_WEBHOOK_URL) {
     try {
-      // Find all items this player now owns to show the admins a full inventory
       const fullInventory = mockPurchases
         .filter(p => p.steamId === purchase.steamId && p.status === 'redeemed')
         .map(p => `- ${p.package}`)
@@ -72,12 +76,12 @@ export async function POST(request: Request) {
           avatar_url: "https://i.imgur.com/8QG3XQ2.png",
           embeds: [{
             title: `💰 Purchase Redeemed In-Game: ${purchase.package}`,
-            color: 0x00ffaa, // Green success color
+            color: 0x00ffaa, 
             fields: [
               { name: "SteamID", value: `\`${purchase.steamId}\``, inline: true },
               { name: "Discord", value: purchase.discord ? `<@${purchase.discord.replace(/[<>@]/g, '')}>` : "Unknown", inline: true },
               { name: "Transaction ID", value: transactionId, inline: false },
-              { name: "Current Player Inventory (Owned Items)", value: fullInventory || "None", inline: false }
+              { name: "Current Player Inventory", value: fullInventory || "None", inline: false }
             ],
             footer: { text: "Nexus Gaming System Integration" },
             timestamp: new Date().toISOString()
@@ -91,6 +95,6 @@ export async function POST(request: Request) {
 
   return NextResponse.json({
     success: true,
-    message: `Transaction ${transactionId} confirmed as redeemed in-game. Discord admins notified.`
+    message: `Transaction ${transactionId} confirmed as redeemed in-game.`
   });
 }
