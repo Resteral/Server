@@ -1,0 +1,16 @@
+{
+  "name": "Nexus Gaming Client",
+  "short_name": "NexusStore",
+  "description": "Desktop client for Nexus Gaming store and ticket support",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0a0a0f",
+  "theme_color": "#00f0ff",
+  "icons": [
+    {
+      "src": "/favicon.ico",
+      "sizes": "64x64",
+      "type": "image/x-icon"
+    }
+  ]
+}
