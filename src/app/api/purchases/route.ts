@@ -39,8 +39,10 @@ export async function POST(request: Request) {
   const data = await request.json();
   const { transactionId } = data;
 
+  // Tebex sends validation pings when you first configure the endpoint which don't contain a transactionId.
+  // We MUST return 200 OK to tell Tebex the URL is alive.
   if (!transactionId) {
-    return NextResponse.json({ error: 'transactionId required' }, { status: 400 });
+    return NextResponse.json({ success: true, message: 'Endpoint Validated' }, { status: 200 });
   }
 
   // Find the purchase and mark it as redeemed
