@@ -131,14 +131,15 @@ export default function StoreFront() {
                 Complete Purchase: <span className="text-gradient">{selectedPack.name}</span>
               </h3>
               <p style={{ color: 'var(--text-muted)' }}>
-                You are about to purchase the <strong>{selectedPack.name}</strong> for ${selectedPack.price}. Enter your player credentials to sync this to server.
+                You are about to purchase the <strong>{selectedPack.name}</strong> for ${selectedPack.price}. Enter your credentials to sync this purchase and get Discord roles.
               </p>
             </div>
             
-            <div style={{ display: 'flex', gap: '1rem', flex: 1, minWidth: '300px' }}>
-               <input type="text" placeholder="Enter SteamID / Username..." className="input-field" style={{ marginBottom: 0, flex: 1 }} />
+            <div style={{ display: 'flex', gap: '1rem', flex: 1, minWidth: '350px' }}>
+               <input type="text" placeholder="SteamID / Username..." className="input-field" style={{ marginBottom: 0, flex: 1 }} />
+               <input type="text" placeholder="Discord Username (optional)" className="input-field" style={{ marginBottom: 0, flex: 1 }} />
                <button className="btn-primary" style={{ whiteSpace: 'nowrap' }} onClick={() => {
-                  alert(`Successfully initiated secure checkout for ${selectedPack.name}.\n\nIn a real environment, this dispatches a transaction record. The server fetches it from /api/purchases to sync your in-game items securely.`);
+                  alert(`Successfully initiated secure checkout for ${selectedPack.name}.\n\nThe webstore will pass your Steam & Discord info so admins can apply your roles.`);
                   setSelectedPack(null);
                }}>
                  Pay ${selectedPack.price}
