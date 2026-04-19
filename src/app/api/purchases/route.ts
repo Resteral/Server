@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server';
+import crypto from 'crypto';
 
 // Local serverless array to hold transactions temporarily
 // (Note: To persist through Vercel restarts, you would write this to a simple DB later)
@@ -26,14 +27,38 @@ export async function GET(request: Request) {
 }
 
 export async function POST(request: Request) {
+  let rawBody;
   let data;
+  
   try {
-    const rawBody = await request.text();
+    rawBody = await request.text();
     if (!rawBody) return new Response('OK', { status: 200 });
     data = JSON.parse(rawBody);
   } catch (err) {
     // If it's not valid JSON, just accept it to stay alive
     return new Response('OK', { status: 200 });
+  }
+
+  // ==========================================
+  // TEBEX SECURITY SIGNATURE VERIFICATION
+  // ==========================================
+  const TEBEX_SECRET = process.env.TEBEX_WEBHOOK_SECRET || null;
+  
+  if (TEBEX_SECRET) {
+      const signatureHeader = request.headers.get('x-signature');
+      
+      if (!signatureHeader) {
+          console.error("Blocked request missing X-Signature header.");
+          return NextResponse.json({ error: 'Unauthorized. Missing Signature.' }, { status: 401 });
+      }
+      
+      // Hash the raw body exactly as it came in using your Tebex Secret
+      const hash = crypto.createHmac('sha256', TEBEX_SECRET).update(rawBody).digest('hex');
+      
+      if (hash !== signatureHeader) {
+          console.error("SECURITY ALERT: Tebex Signature Mismatch! Possible spoofing attempt blocked.");
+          return NextResponse.json({ error: 'Forbidden. Invalid Signature.' }, { status: 403 });
+      }
   }
 
   // TEBEX V2 VALIDATION: Tebex endpoints require you to instantly return their "id" back to them 
