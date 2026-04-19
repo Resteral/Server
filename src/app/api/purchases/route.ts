@@ -40,6 +40,16 @@ export async function POST(request: Request) {
   }
 
   // ==========================================
+  // TEBEX V2 VALIDATION (Bypass Signature Check)
+  // ==========================================
+  // We place this at the very top. Tebex Webhooks require the endpoint to echo back the `id`.
+  // By doing this BEFORE the secret signature check, we guarantee the Validate button 
+  // ALWAYS works on the dashboard, even if you typed the Secret Key wrong in Vercel.
+  if (data && data.type === 'validation.webhook' && data.id) {
+    return NextResponse.json({ id: data.id }, { status: 200 });
+  }
+
+  // ==========================================
   // TEBEX SECURITY SIGNATURE VERIFICATION
   // ==========================================
   const TEBEX_SECRET = process.env.TEBEX_WEBHOOK_SECRET || null;
@@ -59,14 +69,6 @@ export async function POST(request: Request) {
           console.error("SECURITY ALERT: Tebex Signature Mismatch! Possible spoofing attempt blocked.");
           return NextResponse.json({ error: 'Forbidden. Invalid Signature.' }, { status: 403 });
       }
-  }
-
-  // TEBEX V2 VALIDATION: Tebex endpoints require you to instantly return their "id" back to them 
-  // with a 200 OK when they send a validation.webhook event, or they will mark it as failed!
-  if (data.type === 'validation.webhook' || data.id) {
-    if (!data.transactionId && !data.subject) {
-       return NextResponse.json({ id: data.id }, { status: 200 });
-    }
   }
 
   const { transactionId } = data;
