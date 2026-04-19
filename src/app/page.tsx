@@ -6,58 +6,58 @@ const CATEGORIES = [
   {
     title: 'Ranks & Perks',
     items: [
-      { id: 'pkg_vip', name: 'VIP Rank', price: '10.00', image: '👑', desc: 'Get access to priority queue, custom chat colors, and x2 experience.' },
-      { id: 'pkg_mvp', name: 'MVP Rank', price: '25.00', image: '⭐', desc: 'Highest tier. Bypass all queues, exclusive kits, and personalized Discord roles.' },
+      { id: 'pkg_vip', checkoutUrl: '', name: 'VIP Rank', price: '10.00', image: '👑', desc: 'Get access to priority queue, custom chat colors, and x2 experience.' },
+      { id: 'pkg_mvp', checkoutUrl: '', name: 'MVP Rank', price: '25.00', image: '⭐', desc: 'Highest tier. Bypass all queues, exclusive kits, and personalized Discord roles.' },
     ]
   },
   {
     title: 'Weapons & Armory',
     items: [
-      { id: 'pkg_assault_rifle', name: 'Assault Rifle Blueprint', price: '12.00', image: '🔫', desc: 'Permanent blueprint to craft custom military-grade assault rifles at any workbench.' },
-      { id: 'pkg_heavy_sniper', name: 'Heavy Sniper Kit', price: '25.00', image: '🎯', desc: 'A lethal high-caliber sniper rifle dropped instantly into your inventory with a thermal scope and 50 rounds.' },
+      { id: 'pkg_assault_rifle', checkoutUrl: '', name: 'Assault Rifle Blueprint', price: '12.00', image: '🔫', desc: 'Permanent blueprint to craft custom military-grade assault rifles at any workbench.' },
+      { id: 'pkg_heavy_sniper', checkoutUrl: '', name: 'Heavy Sniper Kit', price: '25.00', image: '🎯', desc: 'A lethal high-caliber sniper rifle dropped instantly into your inventory with a thermal scope and 50 rounds.' },
     ]
   },
   {
     title: 'Real Estate & Mansions',
     items: [
-      { id: 'pkg_mansion1', name: 'Vinewood Mansion', price: '50.00', image: '🏡', desc: 'A massive 3-story mansion in the hills. Includes a 10-car garage, pool, and helipad.' },
-      { id: 'pkg_penthouse', name: 'Luxury Penthouse', price: '35.00', image: '🏙️', desc: 'Top floor city penthouse with panoramic views, secret vault, and private elevator access.' },
+      { id: 'pkg_mansion1', checkoutUrl: '', name: 'Vinewood Mansion', price: '50.00', image: '🏡', desc: 'A massive 3-story mansion in the hills. Includes a 10-car garage, pool, and helipad.' },
+      { id: 'pkg_penthouse', checkoutUrl: '', name: 'Luxury Penthouse', price: '35.00', image: '🏙️', desc: 'Top floor city penthouse with panoramic views, secret vault, and private elevator access.' },
     ]
   },
   {
     title: 'Businesses & Enterprises',
     items: [
-      { id: 'pkg_nightclub', name: 'Own a Nightclub', price: '40.00', image: '🍸', desc: 'Become the owner of a premier nightclub. Earn weekly passive income and host events.' },
-      { id: 'pkg_mechanic', name: 'Auto Shop Business', price: '30.00', image: '🔧', desc: 'Own a fully equipped mechanic shop. Access exclusive mods and repair tools.' },
+      { id: 'pkg_nightclub', checkoutUrl: '', name: 'Own a Nightclub', price: '40.00', image: '🍸', desc: 'Become the owner of a premier nightclub. Earn weekly passive income and host events.' },
+      { id: 'pkg_mechanic', checkoutUrl: '', name: 'Auto Shop Business', price: '30.00', image: '🔧', desc: 'Own a fully equipped mechanic shop. Access exclusive mods and repair tools.' },
     ]
   },
   {
     title: 'Gangs & Organizations',
     items: [
-      { id: 'pkg_gang', name: 'Official Gang Tier', price: '60.00', image: '🏴‍☠️', desc: 'Get your gang whitelisted. Includes a custom hideout map, shared stash, and gang bank.' },
-      { id: 'pkg_mafia', name: 'Mafia Family Status', price: '100.00', image: '🕴️', desc: 'The ultimate empire. Giant private compound, armored convoy vehicles, and custom NPC guards.' },
+      { id: 'pkg_gang', checkoutUrl: '', name: 'Official Gang Tier', price: '60.00', image: '🏴‍☠️', desc: 'Get your gang whitelisted. Includes a custom hideout map, shared stash, and gang bank.' },
+      { id: 'pkg_mafia', checkoutUrl: '', name: 'Mafia Family Status', price: '100.00', image: '🕴️', desc: 'The ultimate empire. Giant private compound, armored convoy vehicles, and custom NPC guards.' },
     ]
   },
   {
     title: 'Vehicles / Cars',
     items: [
-      { id: 'pkg_supercar', name: 'Neon Supercar', price: '15.00', image: '🏎️', desc: 'Unlock the fastest supercar on the server with customized neon underglow.' },
-      { id: 'pkg_truck', name: 'Armored Transport', price: '20.00', image: '🛡️', desc: 'Perfect for crew transport and surviving heavy raids. Heavy durability and 6 seats.' },
+      { id: 'pkg_supercar', checkoutUrl: '', name: 'Neon Supercar', price: '15.00', image: '🏎️', desc: 'Unlock the fastest supercar on the server with customized neon underglow.' },
+      { id: 'pkg_truck', checkoutUrl: '', name: 'Armored Transport', price: '20.00', image: '🛡️', desc: 'Perfect for crew transport and surviving heavy raids. Heavy durability and 6 seats.' },
     ]
   },
   {
     title: 'Companions / Pets',
     items: [
-      { id: 'pkg_dragon', name: 'Shoulder Dragon', price: '8.50', image: '🐉', desc: 'A rare mini dragon that sits on your shoulder and occasionally shoots tiny fire.' },
-      { id: 'pkg_husky', name: 'Loyal Husky', price: '5.00', image: '🐺', desc: 'A faithful canine companion that follows you around the open world.' },
+      { id: 'pkg_dragon', checkoutUrl: '', name: 'Shoulder Dragon', price: '8.50', image: '🐉', desc: 'A rare mini dragon that sits on your shoulder and occasionally shoots tiny fire.' },
+      { id: 'pkg_husky', checkoutUrl: '', name: 'Loyal Husky', price: '5.00', image: '🐺', desc: 'A faithful canine companion that follows you around the open world.' },
     ]
   },
   {
     title: 'Currency / Items',
     items: [
-      { id: 'pkg_gems1', name: '500x Gems', price: '4.99', image: '💎', desc: 'Premium currency used to buy exclusive skins and cosmetic emotes in-game.' },
-      { id: 'pkg_gems2', name: '2000x Gems (Best Value!)', price: '14.99', image: '💰', desc: 'Stock up on premium gems with a 25% bonus included.' },
-      { id: 'pkg_supply', name: 'Supply Drop', price: '5.00', image: '📦', desc: 'Instantly spawn a massive supply drop at your in-game location packed with gear.' }
+      { id: 'pkg_gems1', checkoutUrl: '', name: '500x Gems', price: '4.99', image: '💎', desc: 'Premium currency used to buy exclusive skins and cosmetic emotes in-game.' },
+      { id: 'pkg_gems2', checkoutUrl: '', name: '2000x Gems (Best Value!)', price: '14.99', image: '💰', desc: 'Stock up on premium gems with a 25% bonus included.' },
+      { id: 'pkg_supply', checkoutUrl: '', name: 'Supply Drop', price: '5.00', image: '📦', desc: 'Instantly spawn a massive supply drop at your in-game location packed with gear.' }
     ]
   }
 ];
@@ -139,8 +139,11 @@ export default function StoreFront() {
                <input type="text" placeholder="SteamID / Username..." className="input-field" style={{ marginBottom: 0, flex: 1 }} />
                <input type="text" placeholder="Discord Username (optional)" className="input-field" style={{ marginBottom: 0, flex: 1 }} />
                <button className="btn-primary" style={{ whiteSpace: 'nowrap' }} onClick={() => {
-                  alert(`Successfully initiated secure checkout for ${selectedPack.name}.\n\nThe webstore will pass your Steam & Discord info so admins can apply your roles.`);
-                  setSelectedPack(null);
+                  if (selectedPack.checkoutUrl && selectedPack.checkoutUrl.length > 5) {
+                    window.location.href = selectedPack.checkoutUrl;
+                  } else {
+                    alert(`SETUP REQUIRED: Open your code and paste the real Tebex link for ${selectedPack.name} into the 'checkoutUrl' slot!`);
+                  }
                }}>
                  Pay ${selectedPack.price}
                </button>
